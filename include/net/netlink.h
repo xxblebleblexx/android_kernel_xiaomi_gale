@@ -181,6 +181,8 @@ enum {
 	NLA_S64,
 	NLA_BITFIELD32,
 	NLA_REJECT,
+	NLA_EXACT_LEN,
+	NLA_EXACT_LEN_WARN,
 	__NLA_TYPE_MAX,
 };
 
@@ -219,6 +221,10 @@ struct netlink_range_validation_signed {
  *                         just like "All other"
  *    NLA_BITFIELD32       Unused
  *    NLA_REJECT           Unused
+ *    NLA_EXACT_LEN        Attribute must have exactly this length, otherwise
+ *                         it is rejected.
+ *    NLA_EXACT_LEN_WARN   Attribute should have exactly this length, a warning
+ *                         is logged if it is longer, shorter is rejected.
  *    All other            Minimum length of attribute payload
  *
  * Meaning of `validation_data' field:
@@ -276,6 +282,13 @@ struct nla_policy {
 		u16 strict_start_type;
 	};
 };
+
+#define NLA_POLICY_EXACT_LEN(_len)	{ .type = NLA_EXACT_LEN, .len = _len }
+#define NLA_POLICY_EXACT_LEN_WARN(_len)	{ .type = NLA_EXACT_LEN_WARN, \
+					  .len = _len }
+
+#define NLA_POLICY_ETH_ADDR		NLA_POLICY_EXACT_LEN(ETH_ALEN)
+#define NLA_POLICY_ETH_ADDR_COMPAT	NLA_POLICY_EXACT_LEN_WARN(ETH_ALEN)
 
 /**
  * struct nl_info - netlink source information
