@@ -328,7 +328,7 @@ static void show_data(unsigned long addr,
 		for (j = 0; j < 8; j++) {
 			u32	data;
 
-			if (probe_kernel_address((void *)p, data))
+			if (get_kernel_nofault(data, (void *)p))
 				pr_notice(" ********");
 			else
 				pr_notice(" %08x", data);
