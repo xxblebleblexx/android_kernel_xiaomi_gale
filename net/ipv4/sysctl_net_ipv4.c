@@ -1230,7 +1230,17 @@ static struct ctl_table ipv4_net_table[] = {
 			.mode           = 0644,
 			.proc_handler   = proc_dou8vec_minmax,
 		},
-		#endif
+	},
+	#endif
+	{
+		.procname	= "fib_notify_on_flag_change",
+		.data		= &init_net.ipv4.sysctl_fib_notify_on_flag_change,
+		.maxlen		= sizeof(int),
+		.mode		= 0644,
+		.proc_handler	= proc_dointvec_minmax,
+		.extra1		= &zero,
+		.extra2		= &one,
+	},
 	{ }
 };
 
