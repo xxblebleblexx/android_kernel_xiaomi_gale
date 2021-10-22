@@ -3234,6 +3234,8 @@ out:
 
 	inode_unlock(inode_out);
 
+	fuse_flush_time_update(inode_out);
+
 	return err;
 }
 
