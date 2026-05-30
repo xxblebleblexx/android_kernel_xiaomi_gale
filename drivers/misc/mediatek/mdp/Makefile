@@ -104,11 +104,6 @@ endif
 endif
 endif
 
-# platform dependent definition
-ifneq ($(strip $(CONFIG_MTK_GMO_RAM_OPTIMIZE)),y)
-ccflags-y += -DCMDQ_LARGE_MAX_FIRSTERROR_BUFFER
-endif
-
 # driver module
 obj-$(CONFIG_MTK_CMDQ_MBOX_EXT) += cmdq_record.o
 obj-$(CONFIG_MTK_CMDQ_MBOX_EXT) += cmdq_virtual.o

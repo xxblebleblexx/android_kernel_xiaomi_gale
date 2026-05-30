@@ -80,10 +80,6 @@ endif	# end of CONFIG_MTK_CMDQ_MBOX_EXT is not set
 ccflags-y += -DCMDQ_SPECIAL_ESD_PRIORITY
 ccflags-y += -D_CMDQ_DISABLE_MARKER_
 
-ifneq ($(strip $(CONFIG_MTK_GMO_RAM_OPTIMIZE)),y)
-ccflags-y += -DCMDQ_LARGE_MAX_FIRSTERROR_BUFFER
-endif
-
 # driver module
 #obj-y += cmdq_record.o
 #obj-y += cmdq_virtual.o
