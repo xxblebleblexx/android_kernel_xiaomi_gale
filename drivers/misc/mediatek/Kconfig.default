@@ -51,6 +51,7 @@ config ANDROID_DEFAULT_SETTING
 	select DUMMY
 	select EMBEDDED
 	select EPOLL
+	select EROFS_FS
 	select EVENTFD
 	select EXT4_FS
 	select EXT4_FS_POSIX_ACL
