@@ -121,6 +121,7 @@ config ANDROID_DEFAULT_SETTING
 	select IPV6_ROUTER_PREF
 	select IPV6_VTI
 	select JOYSTICK_XPAD
+	select KFENCE
 	select L2TP
 	select MAGIC_SYSRQ
 	select MD
