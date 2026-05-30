@@ -681,7 +681,6 @@ static int fuse_simple_notify_reply(struct fuse_conn *fc,
 	spin_lock(&fiq->lock);
 	if (fiq->connected) {
 		queue_request(fiq, req);
-		err = 0;
 		spin_unlock(&fiq->lock);
 	} else {
 		err = -ENODEV;
