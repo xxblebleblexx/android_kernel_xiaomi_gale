@@ -43,8 +43,6 @@ struct route_info {
  */
 #define IP6_MAX_MTU (0xFFFF + sizeof(struct ipv6hdr))
 
-extern int sysctl_optr;
-
 /*
  * rt6_srcprefs2flags() and rt6_flags2srcprefs() translate
  * between IPV6_ADDR_PREFERENCES socket option values
@@ -167,7 +165,6 @@ struct fib6_info *addrconf_f6i_alloc(struct net *net, struct inet6_dev *idev,
 struct rt6_info *ip6_dst_alloc(struct net *net, struct net_device *dev,
 			       int flags);
 
-int ip6_operator_isop12(void);
 /*
  *	support functions for ND
  *
@@ -175,9 +172,6 @@ int ip6_operator_isop12(void);
 struct fib6_info *rt6_get_dflt_router(struct net *net,
 				     const struct in6_addr *addr,
 				     struct net_device *dev);
-
-struct fib6_info *rt6_get_dflt_router_expires(struct net_device *dev);
-
 struct fib6_info *rt6_add_dflt_router(struct net *net,
 				     const struct in6_addr *gwaddr,
 				     struct net_device *dev, unsigned int pref,
