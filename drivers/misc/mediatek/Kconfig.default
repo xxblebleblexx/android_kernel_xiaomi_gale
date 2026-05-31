@@ -51,6 +51,7 @@ config ANDROID_DEFAULT_SETTING
 	select DEFAULT_SECURITY_SELINUX
 	select DM_SNAPSHOT
 	select DM_VERITY
+	select DM_BOW
 	select DUMMY
 	select EMBEDDED
 	select EPOLL
