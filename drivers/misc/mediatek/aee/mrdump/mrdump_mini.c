@@ -93,23 +93,23 @@ static unsigned long virt_2_pfn(unsigned long addr)
 	if (addr < VA_START)
 		goto OUT;
 
-	if (probe_kernel_address(pgd, _pgd_val) || pgd_none(_pgd_val))
+	if (get_kernel_nofault(_pgd_val, pgd) || pgd_none(_pgd_val))
 		goto OUT;
 	pud = pud_offset(pgd, addr);
-	if (probe_kernel_address(pud, _pud_val) || pud_none(_pud_val))
+	if (get_kernel_nofault(_pud_val, pud) || pud_none(_pud_val))
 		goto OUT;
 	if (pud_sect(_pud_val)) {
 		pfn = pud_pfn(_pud_val) + ((addr&~PUD_MASK) >> PAGE_SHIFT);
 	} else if (pud_table(_pud_val)) {
 		pmd = pmd_offset(pud, addr);
-		if (probe_kernel_address(pmd, _pmd_val) || pmd_none(_pmd_val))
+		if (get_kernel_nofault(_pmd_val, pmd) || pmd_none(_pmd_val))
 			goto OUT;
 		if (pmd_sect(_pmd_val)) {
 			pfn = pmd_pfn(_pmd_val) +
 				((addr&~PMD_MASK) >> PAGE_SHIFT);
 		} else if (pmd_table(_pmd_val)) {
 			ptep = pte_offset_map(pmd, addr);
-			if (probe_kernel_address(ptep, _pte_val)
+			if (get_kernel_nofault(_pte_val, ptep)
 				|| !pte_present(_pte_val)) {
 				pte_unmap(ptep);
 				goto OUT;
@@ -144,19 +144,19 @@ static unsigned long virt_2_pfn(unsigned long addr)
 	pte_t *ptep, _pte_val = 0;
 	unsigned long pfn = ~0UL;
 
-	if (probe_kernel_address(pgd, _pgd_val) || pgd_none(_pgd_val))
+	if (get_kernel_nofault(_pgd_val, pgd) || pgd_none(_pgd_val))
 		goto OUT;
 	pud = pud_offset(pgd, addr);
-	if (probe_kernel_address(pud, _pud_val) || pud_none(_pud_val))
+	if (get_kernel_nofault(_pud_val, pud) || pud_none(_pud_val))
 		goto OUT;
 	pmd = pmd_offset(pud, addr);
-	if (probe_kernel_address(pmd, _pmd_val) || pmd_none(_pmd_val))
+	if (get_kernel_nofault(_pmd_val, pmd) || pmd_none(_pmd_val))
 		goto OUT;
 	if (pmd_sect(_pmd_val)) {
 		pfn = pmd_pfn(_pmd_val) + ((addr&~PMD_MASK) >> PAGE_SHIFT);
 	} else if (pmd_table(_pmd_val)) {
 		ptep = pte_offset_map(pmd, addr);
-		if (probe_kernel_address(ptep, _pte_val)
+		if (get_kernel_nofault(_pte_val, ptep)
 			|| !pte_present(_pte_val)) {
 			pte_unmap(ptep);
 			goto OUT;
