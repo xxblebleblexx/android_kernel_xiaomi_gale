@@ -43,10 +43,22 @@ config CFQ_GROUP_IOSCHED
 choice
 
 	prompt "Default I/O scheduler"
-	default DEFAULT_CFQ
+	default DEFAULT_MQ_IOSCHED_SSG
 	help
 	  Select the I/O scheduler which will be used by default for all
 	  block devices.
+
+	config DEFAULT_MQ_IOSCHED_ADIOS
+		bool "MQ_IOSCHED_CPQ" if MQ_IOSCHED_ADIOS=y
+
+	config DEFAULT_MQ_IOSCHED_CPQ
+		bool "MQ_IOSCHED_CPQ" if MQ_IOSCHED_CPQ=y
+
+	config DEFAULT_MQ_IOSCHED_SSG
+		bool "MQ_IOSCHED_SSG" if MQ_IOSCHED_SSG=y
+
+	config DEFAULT_MQ_DEADLINE
+		bool "MQ-Deadline" if MQ_IOSCHED_DEADLINE=y
 
 	config DEFAULT_DEADLINE
 		bool "Deadline" if IOSCHED_DEADLINE=y
@@ -61,6 +73,10 @@ endchoice
 
 config DEFAULT_IOSCHED
 	string
+	default "adios" if DEFAULT_MQ_IOSCHED_ADIOS
+	default "cpq" if DEFAULT_MQ_IOSCHED_CPQ
+	default "ssg" if DEFAULT_MQ_IOSCHED_SSG
+	default "mq-deadline" if DEFAULT_MQ_DEADLINE
 	default "deadline" if DEFAULT_DEADLINE
 	default "cfq" if DEFAULT_CFQ
 	default "noop" if DEFAULT_NOOP
@@ -82,13 +98,25 @@ config MQ_IOSCHED_KYBER
 
 config MQ_IOSCHED_SSG
 	tristate "SamSung Generic I/O scheduler"
-	default n
+	default y
 	---help---
 	  SamSung Generic IO scheduler.
+	  
+ config MQ_IOSCHED_ADIOS
+	tristate "adios scheduler"
+	default y
+	---help---
+	  adios scheduler
+	 
+config MQ_IOSCHED_CPQ
+	tristate "Xiaomi I/O scheduler"
+	default y
+	---help---
+	  CPQ Xiaomi IO scheduler.
 
 config MQ_IOSCHED_SSG_CGROUP
 	tristate "Control Group for SamSung Generic I/O scheduler"
-	default n
+	default y
 	depends on BLK_CGROUP
 	depends on MQ_IOSCHED_SSG
 	---help---
