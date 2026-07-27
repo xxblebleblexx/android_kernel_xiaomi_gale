@@ -492,20 +492,6 @@ menuconfig TCP_CONG_ADVANCED
 
 if TCP_CONG_ADVANCED
 
-config TCP_CONG_BIC
-	tristate "Binary Increase Congestion (BIC) control"
-	default m
-	---help---
-	BIC-TCP is a sender-side only change that ensures a linear RTT
-	fairness under large windows while offering both scalability and
-	bounded TCP-friendliness. The protocol combines two schemes
-	called additive increase and binary search increase. When the
-	congestion window is large, additive increase with a large
-	increment ensures linear RTT fairness as well as good
-	scalability. Under small congestion windows, binary search
-	increase provides TCP friendliness.
-	See http://www.csc.ncsu.edu/faculty/rhee/export/bitcp/
-
 config TCP_CONG_CUBIC
 	tristate "CUBIC TCP"
 	default y
@@ -691,9 +677,18 @@ config TCP_CONG_BBR
 	bufferbloat, policers, or AQM schemes that do not provide a delay
 	signal. It requires the fq ("Fair Queue") pacing packet scheduler.
 
+config TCP_CONG_BBRPLUS
+        tristate "BBRPLUS TCP"
+        default y
+        ---help---
+
+        BBRplus is an enhanced version of BBR (Bottleneck Bandwidth and RTT).
+        Originally introduced by dog250 & cx9208.
+        Same as BBR, it requires the fq ("Fair Queue") pacing packet scheduler.
+        
 choice
 	prompt "Default TCP congestion control"
-	default DEFAULT_CUBIC
+	default DEFAULT_WESTWOOD
 	help
 	  Select the TCP congestion control that will be used by default
 	  for all connections.
@@ -728,6 +723,9 @@ choice
 	config DEFAULT_BBR
 		bool "BBR" if TCP_CONG_BBR=y
 
+        config DEFAULT_BBRPLUS
+                bool "BBRPLUS" if TCP_CONG_BBRPLUS=y
+
 	config DEFAULT_RENO
 		bool "Reno"
 endchoice
@@ -746,13 +744,14 @@ config DEFAULT_TCP_CONG
 	default "htcp" if DEFAULT_HTCP
 	default "hybla" if DEFAULT_HYBLA
 	default "vegas" if DEFAULT_VEGAS
-	default "westwood" if DEFAULT_WESTWOOD
+	default "westwood_sub+" if DEFAULT_WESTWOOD
 	default "veno" if DEFAULT_VENO
 	default "reno" if DEFAULT_RENO
 	default "dctcp" if DEFAULT_DCTCP
 	default "cdg" if DEFAULT_CDG
 	default "bbr" if DEFAULT_BBR
-	default "cubic"
+        default "bbrplus" if DEFAULT_BBRPLUS
+	default "bbrplus"
 
 config TCP_MD5SIG
 	bool "TCP: MD5 Signature Option support (RFC2385)"
