@@ -689,6 +689,7 @@ KBUILD_CFLAGS	+= -mllvm -polly \
 		   -mllvm -polly-run-dce \
 		   -mllvm -polly-run-inliner \
 		   -mllvm -polly-ast-use-context \
+		   -mllvm -polly-loopfusion-greedy=1 \
 		   -mllvm -polly-detect-keep-going \
 		   -mllvm -polly-vectorizer=stripmine \
 		   -mllvm -polly-invariant-load-hoisting
