@@ -43,6 +43,7 @@
 *.xz
 *.orig
 *.rej
+*.diff
 Module.symvers
 modules.builtin
 
