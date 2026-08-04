@@ -49,7 +49,7 @@ choice
 	  block devices.
 
 	config DEFAULT_MQ_IOSCHED_ADIOS
-		bool "MQ_IOSCHED_CPQ" if MQ_IOSCHED_ADIOS=y
+		bool "MQ_IOSCHED_ADIOS" if MQ_IOSCHED_ADIOS=y
 
 	config DEFAULT_MQ_IOSCHED_CPQ
 		bool "MQ_IOSCHED_CPQ" if MQ_IOSCHED_CPQ=y
