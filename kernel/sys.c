@@ -1238,7 +1238,7 @@ static int override_release(char __user *release, size_t len)
         real_suffix++;
     }
     
-    snprintf(fake, sizeof(fake), "5.10.239%s", real_suffix);
+    snprintf(fake, sizeof(fake), "6.6.30%s", real_suffix);
     flen = strlen(fake) + 1;
 
     
