@@ -532,6 +532,7 @@ CONFIG_RSEQ=n
 CONFIG_DYNAMIC_DEBUG=n
 CONFIG_DEBUG_INFO=n
 CONFIG_SLUB_CPU_PARTIAL=n
+CONFIG_AUDIT=n
 
 # Kernel configurations for full DroidSpaces support
 # Copyright (C) 2026 ravindu644 <droidcasts@protonmail.com>
