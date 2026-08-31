@@ -984,7 +984,7 @@ int elevator_init_mq(struct request_queue *q)
 		goto out;
 
 	e = elevator_get(q,
-	"adios",
+	"ssg",
 	false);
 	if (!e)
 		goto out;
