@@ -72,6 +72,9 @@
 #include <linux/uaccess.h>
 #include <asm/io.h>
 #include <asm/unistd.h>
+
+#include <linux/string.h>
+
 #ifdef CONFIG_MTK_TASK_TURBO
 #include <mt-plat/turbo_common.h>
 #endif
@@ -1227,28 +1230,42 @@ DECLARE_RWSEM(uts_sem);
  */
 static int override_release(char __user *release, size_t len)
 {
-	int ret = 0;
+    char fake[65];
+    const char *real_suffix = UTS_RELEASE;
+    size_t flen;
 
-	if (current->personality & UNAME26) {
-		const char *rest = UTS_RELEASE;
-		char buf[65] = { 0 };
-		int ndots = 0;
-		unsigned v;
-		size_t copy;
+    while (*real_suffix && *real_suffix != '-') {
+        real_suffix++;
+    }
+    
+    snprintf(fake, sizeof(fake), "6.18.191%s", real_suffix);
+    flen = strlen(fake) + 1;
 
-		while (*rest) {
-			if (*rest == '.' && ++ndots >= 3)
-				break;
-			if (!isdigit(*rest) && *rest != '.')
-				break;
-			rest++;
-		}
-		v = ((LINUX_VERSION_CODE >> 8) & 0xff) + 60;
-		copy = clamp_t(size_t, len, 1, sizeof(buf));
-		copy = scnprintf(buf, copy, "2.6.%u%s", v, rest);
-		ret = copy_to_user(release, buf, copy + 1);
-	}
-	return ret;
+    
+    if (strncmp(current->comm, "bpfloader", 9) == 0 || 
+        strncmp(current->comm, "netbpfload", 10) == 0 ||
+        strncmp(current->comm, "netd", 4) == 0) {  
+        
+        if (len < flen)
+            return -EINVAL;
+
+        if (copy_to_user(release, fake, flen))
+            return -EFAULT;
+        return 0;
+    }
+
+    {
+        const char *real = UTS_RELEASE;
+        size_t rlen = strlen(real) + 1;
+
+        if (len < rlen)
+            return -EINVAL;
+
+        if (copy_to_user(release, real, rlen))
+            return -EFAULT;
+        
+        return 0;
+    }
 }
 
 SYSCALL_DEFINE1(newuname, struct new_utsname __user *, name)
