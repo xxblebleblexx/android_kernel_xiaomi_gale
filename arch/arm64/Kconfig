@@ -638,7 +638,7 @@ config ARM64_ERRATUM_4118414
 
 config CAVIUM_ERRATUM_22375
 	bool "Cavium erratum 22375, 24313"
-	default y
+	default n
 	help
 	  Enable workaround for erratum 22375, 24313.
 
@@ -656,7 +656,7 @@ config CAVIUM_ERRATUM_22375
 config CAVIUM_ERRATUM_23144
 	bool "Cavium erratum 23144: ITS SYNC hang on dual socket system"
 	depends on NUMA
-	default y
+	default n
 	help
 	  ITS SYNC command hang for cross node io and collections/cpu mapping.
 
@@ -664,7 +664,7 @@ config CAVIUM_ERRATUM_23144
 
 config CAVIUM_ERRATUM_23154
 	bool "Cavium erratum 23154: Access to ICC_IAR1_EL1 is not sync'ed"
-	default y
+	default n
 	help
 	  The gicv3 of ThunderX requires a modified version for
 	  reading the IAR status to ensure data synchronization
@@ -674,7 +674,7 @@ config CAVIUM_ERRATUM_23154
 
 config CAVIUM_ERRATUM_27456
 	bool "Cavium erratum 27456: Broadcast TLBI instructions may cause icache corruption"
-	default y
+	default n
 	help
 	  On ThunderX T88 pass 1.x through 2.1 parts, broadcast TLBI
 	  instructions may cause the icache to become corrupted if it
@@ -685,7 +685,7 @@ config CAVIUM_ERRATUM_27456
 
 config CAVIUM_ERRATUM_30115
 	bool "Cavium erratum 30115: Guest may disable interrupts in host"
-	default y
+	default n
 	help
 	  On ThunderX T88 pass 1.x through 2.2, T81 pass 1.0 through
 	  1.2, and T83 Pass 1.0, KVM guest execution may disable
@@ -696,7 +696,7 @@ config CAVIUM_ERRATUM_30115
 
 config QCOM_FALKOR_ERRATUM_1003
 	bool "Falkor E1003: Incorrect translation due to ASID change"
-	default y
+	default n
 	help
 	  On Falkor v1, an incorrect ASID may be cached in the TLB when ASID
 	  and BADDR are changed together in TTBRx_EL1. Since we keep the ASID
@@ -713,7 +713,7 @@ config ARM64_WORKAROUND_REPEAT_TLBI
 
 config QCOM_FALKOR_ERRATUM_1009
 	bool "Falkor E1009: Prematurely complete a DSB after a TLBI"
-	default y
+	default n
 	select ARM64_WORKAROUND_REPEAT_TLBI
 	help
 	  On Falkor v1, the CPU may prematurely complete a DSB following a
@@ -724,7 +724,7 @@ config QCOM_FALKOR_ERRATUM_1009
 
 config QCOM_QDF2400_ERRATUM_0065
 	bool "QDF2400 E0065: Incorrect GITS_TYPER.ITT_Entry_size"
-	default y
+	default n
 	help
 	  On Qualcomm Datacenter Technologies QDF2400 SoC, ITS hardware reports
 	  ITE size incorrectly. The GITS_TYPER.ITT_Entry_size field should have
@@ -734,7 +734,7 @@ config QCOM_QDF2400_ERRATUM_0065
 
 config SOCIONEXT_SYNQUACER_PREITS
 	bool "Socionext Synquacer: Workaround for GICv3 pre-ITS"
-	default y
+	default n
 	help
 	  Socionext Synquacer SoCs implement a separate h/w block to generate
 	  MSI doorbell writes with non-zero values for the device ID.
@@ -743,7 +743,7 @@ config SOCIONEXT_SYNQUACER_PREITS
 
 config HISILICON_ERRATUM_161600802
 	bool "Hip07 161600802: Erroneous redistributor VLPI base"
-	default y
+	default n
 	help
 	  The HiSilicon Hip07 SoC usees the wrong redistributor base
 	  when issued ITS commands such as VMOVP and VMAPP, and requires
@@ -753,7 +753,7 @@ config HISILICON_ERRATUM_161600802
 
 config QCOM_FALKOR_ERRATUM_E1041
 	bool "Falkor E1041: Speculative instruction fetches might cause errant memory access"
-	default y
+	default n
 	help
 	  Falkor CPU may speculatively fetch instructions from an improper
 	  memory location when MMU translation is changed from SCTLR_ELn[M]=1
