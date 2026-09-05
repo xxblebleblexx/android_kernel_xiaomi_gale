@@ -19,6 +19,9 @@ MTK_PLATFORM := $(subst ",,$(CONFIG_MTK_DISP_PLATFORM))
 endif
 subdir-ccflags-y += -I$(srctree)/drivers/misc/mediatek/base/power/$(MTK_PLATFORM)
 subdir-ccflags-y += -I$(srctree)/drivers/misc/mediatek/video/$(MTK_PLATFORM)/videox/
+subdir-ccflags-y += -I$(srctree)/drivers/misc/mediatek/aee/mrdump
+subdir-ccflags-y += -I$(srctree)/drivers/misc/mediatek/aee/aed
+subdir-ccflags-y += -I$(srctree)/drivers/misc/mediatek/aee
 subdir-ccflags-y += -I$(srctree)/drivers/misc/mediatek/include
 subdir-ccflags-y += -I$(srctree)/drivers/misc/mediatek/include/mt-plat/
 subdir-ccflags-y += -I$(srctree)/drivers/misc/mediatek/mmp/
