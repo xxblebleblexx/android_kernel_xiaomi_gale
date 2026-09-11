@@ -644,7 +644,6 @@ static int inet6_dump_fib(struct sk_buff *skb, struct netlink_callback *cb)
 
 	rcu_read_lock();
 	for (h = s_h; h < FIB6_TABLE_HASHSZ; h++, s_id = 0) {
-		e = 0;
 		head = &net->ipv6.fib_table_hash[h];
 		hlist_for_each_entry_rcu(tb, head, tb6_hlist) {
 			if (s_id && tb->tb6_id != s_id)
