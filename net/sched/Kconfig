@@ -397,7 +397,7 @@ endchoice
 
 config DEFAULT_NET_SCH
 	string
-	default "cake" id DEFAULT_CAKE
+	default "cake" if DEFAULT_CAKE
 	default "pfifo_fast" if DEFAULT_PFIFO_FAST
 	default "fq" if DEFAULT_FQ
 	default "fq_codel" if DEFAULT_FQ_CODEL
