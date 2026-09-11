@@ -371,10 +371,13 @@ if NET_SCH_DEFAULT
 
 choice
 	prompt "Default queuing discipline"
-	default DEFAULT_PFIFO_FAST
+	default DEFAULT_CAKE
 	help
 	  Select the queueing discipline that will be used by default
 	  for all network devices.
+
+	config DEFAULT_CAKE
+		bool "CAKE sched" if NET_SCH_CAKE
 
 	config DEFAULT_FQ
 		bool "Fair Queue" if NET_SCH_FQ
@@ -394,11 +397,12 @@ endchoice
 
 config DEFAULT_NET_SCH
 	string
+	default "cake" id DEFAULT_CAKE
 	default "pfifo_fast" if DEFAULT_PFIFO_FAST
 	default "fq" if DEFAULT_FQ
 	default "fq_codel" if DEFAULT_FQ_CODEL
 	default "sfq" if DEFAULT_SFQ
-	default "pfifo_fast"
+	default "cake"
 endif
 
 comment "Classification"
