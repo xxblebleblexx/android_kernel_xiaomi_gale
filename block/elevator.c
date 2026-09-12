@@ -984,11 +984,7 @@ int elevator_init_mq(struct request_queue *q)
 		goto out;
 
 	e = elevator_get(q,
-#ifdef CONFIG_MQ_IOSCHED_SSG
-	"ssg",
-#else
-	"mq-deadline",
-#endif
+	"adios",
 	false);
 	if (!e)
 		goto out;
