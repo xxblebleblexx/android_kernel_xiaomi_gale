@@ -3472,9 +3472,10 @@ int sched_fork(unsigned long clone_flags, struct task_struct *p)
 
 void sched_post_fork(struct task_struct *p)
 {
-        uclamp_post_fork(p);
 #ifdef CONFIG_SCHED_BORE
 	sched_post_fork_bore(p);
+#else
+        uclamp_post_fork(p);
 #endif // CONFIG_SCHED_BORE
 }
 
