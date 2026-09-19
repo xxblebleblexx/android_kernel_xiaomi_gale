@@ -570,7 +570,7 @@ config TCP_CONG_VEGAS
 
 config TCP_CONG_NV
 	tristate "TCP NV"
-	default y
+	default n
 	help
 	  TCP NV is a follow up to TCP Vegas. It has been modified to deal with
 	  10G networks, measurement noise introduced by LRO, GRO and interrupt
@@ -693,7 +693,7 @@ config TCP_CONG_BBR
 
 choice
 	prompt "Default TCP congestion control"
-	default DEFAULT_NV
+	default DEFAULT_BBR
 	help
 	  Select the TCP congestion control that will be used by default
 	  for all connections.
@@ -718,8 +718,6 @@ choice
 		bool "CDG" if TCP_CONG_CDG=y
 	config DEFAULT_BBR
 		bool "BBR" if TCP_CONG_BBR=y
-	config DEFAULT_NV
-		bool "NV" if TCP_CONG_NV=y
 	config DEFAULT_RENO
 		bool "Reno"
 endchoice
@@ -744,8 +742,7 @@ config DEFAULT_TCP_CONG
 	default "dctcp" if DEFAULT_DCTCP
 	default "cdg" if DEFAULT_CDG
 	default "bbr" if DEFAULT_BBR
-	default "nv" if DEFAULT_NV
-	default "nv"
+	default "cubic"
 
 config TCP_MD5SIG
 	bool "TCP: MD5 Signature Option support (RFC2385)"
