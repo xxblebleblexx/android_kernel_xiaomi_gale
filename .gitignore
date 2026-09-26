@@ -41,6 +41,10 @@
 *.tab.[ch]
 *.tar
 *.xz
+*.patch
+*.diff
+*.rej
+*.orig
 Module.symvers
 modules.builtin
 
