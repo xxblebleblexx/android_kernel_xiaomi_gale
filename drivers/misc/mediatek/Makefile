@@ -124,7 +124,6 @@ obj-y += mmdvfs/
 obj-$(CONFIG_MTK_IOMMU_MISC) += iommu/
 obj-$(CONFIG_INTERCONNECT_MTK_MMQOS_COMMON) += mmqos/
 obj-$(CONFIG_MTK_PERF_COMMON) += perf_common/
-obj-$(CONFIG_MTK_SYSTRACKER_V2) += systracker/
 obj-$(CONFIG_MTK_HANG_DETECT) += monitor_hang/
 ifeq ($(CONFIG_MTK_GAUGE_VERSION),30)
 obj-y += power/
